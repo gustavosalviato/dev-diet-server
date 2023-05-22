@@ -1,10 +1,9 @@
 import fastify from "fastify"
+import { userRoutes } from "./routes/userRoutes"
 
 const app = fastify()
 
-app.get('/hello', () => {
-  return 'oi'
-})
+app.register(userRoutes)
 
 app.listen({
   port: 3333,
