@@ -8,6 +8,7 @@ export async function mealRoutes(app: FastifyInstance) {
   app.addHook('preHandler', async (request) => {
     await request.jwtVerify()
   })
+
   app.post('/meal', async (request, reply) => {
     const bodySchema = z.object({
       name: z.string(),
@@ -21,16 +22,6 @@ export async function mealRoutes(app: FastifyInstance) {
 
     const hourInSeconds = moment.duration(hour).asSeconds()
 
-    let sessionId = request.cookies.sessionId
-
-    if (!sessionId) {
-      sessionId = randomUUID()
-      reply.setCookie('sessionId', sessionId, {
-        path: '/',
-        maxAge: 100 * 60 * 60 * 24 * 7 //7 days
-      })
-    }
-
     await prisma.meal.create({
       data: {
         createdAt,
@@ -38,12 +29,12 @@ export async function mealRoutes(app: FastifyInstance) {
         hour: hourInSeconds,
         isOnDiet,
         name,
-        userId: '88a9c854-a6ce-47cf-97ec-f5ee39b4f56e'
+        userId: request.user.sub
       }
     })
   })
 
-  app.put('/meal/:id', async (request) => {
+  app.put('/meal/:id', async (request, reply) => {
     const paramsSchema = z.object({
       id: z.string().uuid()
     })
@@ -67,6 +58,10 @@ export async function mealRoutes(app: FastifyInstance) {
       }
     })
 
+    if (meal.userId !== request.user.sub) {
+      return reply.status(401).send()
+    }
+
     meal = await prisma.meal.update({
       where: {
         id
@@ -77,7 +72,6 @@ export async function mealRoutes(app: FastifyInstance) {
         description,
         hour: hourInSeconds,
         isOnDiet,
-        userId: '88a9c854-a6ce-47cf-97ec-f5ee39b4f56e'
       }
     })
 
@@ -90,6 +84,16 @@ export async function mealRoutes(app: FastifyInstance) {
 
     const { id } = paramsSchema.parse(request.params)
 
+    const meal = await prisma.meal.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if (meal?.userId !== request.user.sub) {
+      return reply.status(401).send()
+    }
+
     await prisma.meal.delete({
       where: {
         id
@@ -100,10 +104,21 @@ export async function mealRoutes(app: FastifyInstance) {
   })
 
   app.get('/meal', async (request, reply) => {
-    const meals = await prisma.meal.findMany()
+    const meals = await prisma.meal.findMany({
+      where: {
+        userId: request.user.sub
+      }
+    })
 
-    return reply.send({
-      meals
+    return meals.map((meal) => {
+      return {
+        id: meal.id,
+        name: meal.name,
+        description: meal.description,
+        createdAt: meal.createdAt,
+        hour: meal.hour,
+        isOnDiet: meal.isOnDiet,
+      }
     })
   })
 
@@ -120,8 +135,10 @@ export async function mealRoutes(app: FastifyInstance) {
       }
     })
 
-    return reply.send({
-      meal
-    })
+    if (meal.userId !== request.user.sub) {
+      return reply.status(401).send()
+    }
+
+    return reply.send(meal)
   })
 }
