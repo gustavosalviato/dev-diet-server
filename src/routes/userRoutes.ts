@@ -19,7 +19,7 @@ export async function userRoutes(app: FastifyInstance) {
     })
 
     if (userAlreadyExists) {
-      return reply.status(400).send({ error: 'user already exist.' })
+      return reply.status(400).send({ error: 'user already exists.' })
     }
 
     const user = await prisma.user.create({

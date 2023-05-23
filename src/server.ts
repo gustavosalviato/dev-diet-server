@@ -1,9 +1,4 @@
-import fastify from "fastify"
-import { userRoutes } from "./routes/userRoutes"
-
-const app = fastify()
-
-app.register(userRoutes)
+import { app } from "./app";
 
 app.listen({
   port: 3333,

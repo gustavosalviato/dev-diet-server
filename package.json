@@ -4,18 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "test": "vitest",
+    "reset": "prisma migrate reset --force"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/supertest": "^2.0.12",
     "prisma": "^4.14.1",
+    "supertest": "^6.3.3",
     "tsx": "^3.12.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.1"
   },
   "dependencies": {
     "@prisma/client": "^4.14.1",
-    "fastify": "^4.17.0"
+    "dotenv": "^16.0.3",
+    "fastify": "^4.17.0",
+    "zod": "^3.21.4"
   }
 }
