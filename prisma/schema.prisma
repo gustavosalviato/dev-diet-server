@@ -9,8 +9,9 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
+  githubId  Int      @unique
   name      String
-  email     String   @unique
+  email     String
   avatar    String
   createdAt DateTime @default(now())
   Meal      Meal[]
@@ -23,6 +24,7 @@ model Meal {
   createdAt   DateTime
   hour        Int
   isOnDiet    Boolean
+  sessionId   String
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
