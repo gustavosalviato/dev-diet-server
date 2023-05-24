@@ -201,4 +201,16 @@ export async function mealRoutes(app: FastifyInstance) {
       offMeals
     })
   })
+
+  app.get('/meals/sequence', async (request, reply) =>{
+    const userResponse = await prisma.user.findUnique({
+      where: {
+        id: request.user.sub
+      }
+    })
+
+    return reply.send({
+      sequence : userResponse?.sequenceCount
+    })
+  })
 }
