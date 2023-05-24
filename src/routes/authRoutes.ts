@@ -50,7 +50,8 @@ export async function authRoutes(app: FastifyInstance) {
           avatar: userInfo.avatar_url,
           email: userInfo.email,
           githubId: userInfo.id,
-          name: userInfo.name
+          name: userInfo.name,
+          sequenceCount: 0
         }
       })
     }
