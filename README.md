@@ -23,5 +23,3 @@ Diet App
   - Quantidade total de refeições fora da dieta
   - Melhor sequência por dia de refeições dentro da dieta
 - [x] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
-
-## Regras de negócios
