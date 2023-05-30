@@ -70,5 +70,19 @@ export async function authRoutes(app: FastifyInstance) {
     }
   })
 
+  app.get('/user/:id', async (request, reply) => {
+    const paramsSchema = z.object({
+      id: z.string()
+    })
 
+    const { id } = paramsSchema.parse(request.params)
+    
+    const userResponse = await prisma.user.findUnique({
+      where:{
+        id
+      }
+    })
+
+    return reply.send(userResponse)
+  })
 }
