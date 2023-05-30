@@ -4,8 +4,8 @@ import { app } from '../app'
 import request from 'supertest'
 import { prisma } from '../lib/prisma'
 
-const userId = 'bde99013-a436-41fb-996d-297a1f4c4dbe'
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR3VzdGF2byBIZW5yaXF1ZSIsImF2YXRhclVybCI6Imh0dHBzOi8vYXZhdGFycy5naXRodWJ1c2VyY29udGVudC5jb20vdS83NTc2Mjk3Nj92PTQiLCJzdWIiOiI4MDk3NmM0YS00MWQ0LTQ3NzUtOGQzYi1lMmVkZmNmNDM2NDQiLCJpYXQiOjE2ODQ4NzQ5MjgsImV4cCI6MTY4NzQ2NjkyOH0.lyATGa-0xBnLS2DLQq37vvwso6vAEoQZSXlwsSFPwow"
+const userId = '5e8b4e1b-5bae-434d-a209-a89d024bcf72'
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR3VzdGF2byBIZW5yaXF1ZSIsImF2YXRhclVybCI6Imh0dHBzOi8vYXZhdGFycy5naXRodWJ1c2VyY29udGVudC5jb20vdS83NTc2Mjk3Nj92PTQiLCJzdWIiOiI3Yzg0MDNiMy1kZGQ0LTRjYTAtYWZjYS0yOGI2ODA1MzkxNzQiLCJpYXQiOjE2ODU0NDk2OTgsImV4cCI6MTY4ODA0MTY5OH0.WGu7yOX2HORdfRd-qRUP-QQCTSNFw4tLNtvxdxnnuq8"
 
 beforeAll(async () => {
   app.ready()
@@ -157,4 +157,5 @@ describe('Meal', () => {
     expect(response.body.onMeals).toBeTruthy()
     expect(response.body.offMeals).toBeTruthy()
   })
+
 })
