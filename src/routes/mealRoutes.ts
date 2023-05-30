@@ -99,6 +99,15 @@ export async function mealRoutes(app: FastifyInstance) {
       }
     })
 
+    await prisma.user.update({
+      where:{
+        id: request.user.sub
+      },
+      data: {
+        sequenceCount: meal.isOnDiet === true ? 1 : 0 
+      }
+    })
+
     return reply.status(204).send()
 
   })
@@ -123,6 +132,15 @@ export async function mealRoutes(app: FastifyInstance) {
     await prisma.meal.delete({
       where: {
         id
+      }
+    })
+
+    await prisma.user.update({
+      where: {
+        id: request.user.sub,
+      },
+      data: {
+        sequenceCount: 0
       }
     })
 
@@ -202,7 +220,7 @@ export async function mealRoutes(app: FastifyInstance) {
     })
   })
 
-  app.get('/meals/sequence', async (request, reply) =>{
+  app.get('/meals/sequence', async (request, reply) => {
     const userResponse = await prisma.user.findUnique({
       where: {
         id: request.user.sub
@@ -210,7 +228,7 @@ export async function mealRoutes(app: FastifyInstance) {
     })
 
     return reply.send({
-      sequence : userResponse?.sequenceCount
+      sequence: userResponse?.sequenceCount
     })
   })
 }
