@@ -9,10 +9,10 @@ datasource db {
 
 model User {
   id            String   @id @default(uuid())
-  githubId      Int      @unique
+  githubId      Int?     @unique
   name          String
-  email         String
-  avatar        String
+  email         String   @unique
+  avatar        String?
   createdAt     DateTime @default(now())
   sequenceCount Int
   Meal          Meal[]
