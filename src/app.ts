@@ -4,6 +4,8 @@ import cookies from '@fastify/cookie'
 import jwt from '@fastify/jwt'
 import { ZodError } from 'zod'
 import { env } from '@/env'
+import { AppRoutes } from "./http/routes"
+
 
 export const app = fastify()
 
@@ -11,6 +13,7 @@ app.register(cookies)
 app.register(jwt, {
   secret: 'daily-diet'
 })
+app.register(AppRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   if (error instanceof ZodError) {
