@@ -3,7 +3,6 @@ Diet App
 ## Requisitos Funcionais
 
  -[x] Dever ser possível criar um usuário
- -[x] Dever ser possível criar um usuário
  -[x] Deve ser possível registrar uma refeição feita, com as seguintes informações:
     
     As refeições devem ser relacionadas a um usuário.*

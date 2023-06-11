@@ -1,11 +1,9 @@
 import { PrismaUsersRepository } from "@/respositories/prisma/users/prisma-users-repository"
-import { PrismaMealsRepository } from "@/respositories/prisma/meals/prisma-meals-repository"
-import { CreateMealUseCase } from "../meal/create-meal"
+import { RegisterUserUseCase } from "../user/register-user"
 
 export function makeRegisterUserUseCase() {
-  const mealsRespository = new PrismaMealsRepository()
   const usersRepository = new PrismaUsersRepository()
-  const createMealUseCase = new CreateMealUseCase(mealsRespository, usersRepository)
+  const createMealUseCase = new RegisterUserUseCase(usersRepository)
 
   return createMealUseCase
 }

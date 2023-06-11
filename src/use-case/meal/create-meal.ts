@@ -12,6 +12,7 @@ interface CreateMealRequest {
   isOnDiet: boolean,
   createdAt: Date
 }
+
 interface CreateMealResponse {
   meal: Meal
 }
