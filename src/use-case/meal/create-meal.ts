@@ -1,4 +1,3 @@
-// import { ResourceNotFoundError } from "@/error/resource-not-found-error";
 import { ResourceNotFoundError } from "@/error/resource-not-found-error";
 import { MealsRepository } from "@/respositories/prisma/meals/meals-respository";
 import { UsersRepository } from "@/respositories/prisma/users/users-repository";

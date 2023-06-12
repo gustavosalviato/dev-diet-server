@@ -48,4 +48,9 @@ export class InMemoryMealsRepository implements MealsRepository {
     return meal
   }
 
+
+  async deleteMealById(mealId: string) {
+    this.meals.filter(meal => meal.id !== mealId)
+  }
+
 }
