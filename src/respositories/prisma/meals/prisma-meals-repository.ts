@@ -1,9 +1,10 @@
-import { Prisma } from "@prisma/client";
+import { Meal, Prisma } from "@prisma/client";
 import { MealsRepository } from "./meals-respository";
 import { prisma } from "@/lib/prisma";
 
 
 export class PrismaMealsRepository implements MealsRepository {
+
   async create(data: Prisma.MealUncheckedCreateInput) {
     const meal = await prisma.meal.create({
       data
@@ -58,5 +59,16 @@ export class PrismaMealsRepository implements MealsRepository {
       }
     })
   }
+
+  async getMealsByUser(userId: string): Promise<Meal[]> {
+    const meals = await prisma.meal.findMany({
+      where: {
+        userId
+      }
+    })
+
+    return meals
+  }
+
 }
 
