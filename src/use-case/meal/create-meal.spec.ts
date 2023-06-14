@@ -32,7 +32,8 @@ describe('Create meal', () => {
       hour: 1,
       isOnDiet: true,
       name: 'test name',
-      userId: user.id
+      userId: user.id,
+      createdAt: new Date()
     })
 
     expect(meal.id).toEqual(expect.any(String))
@@ -45,7 +46,8 @@ describe('Create meal', () => {
         hour: 1,
         isOnDiet: true,
         name: 'test name',
-        userId: 'user-id-1'
+        userId: 'user-id-1',
+        createdAt: new Date()
       })
     ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })

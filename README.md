@@ -2,11 +2,10 @@ Diet App
 
 ## Requisitos Funcionais
 
- -[x] Dever ser possível criar um usuário
- -[x] Deve ser possível registrar uma refeição feita, com as seguintes informações:
-    
+-[x] Dever ser possível criar um usuário -[x] Deve ser possível registrar uma refeição feita, com as seguintes informações:
+
     As refeições devem ser relacionadas a um usuário.*
-    
+
     - Nome
     - Descrição
     - Data e Hora
@@ -26,5 +25,5 @@ Diet App
 ## Regra de negócio
 
 - [x] Não se pode criar um usuário com o mesmo e-mail usado anteriormente
- - [x] Ao fazer o processo de exclução de um refeição deve se zerar a sequência de dietas dentro da dieta, ou seja dever ser 0
+- [x] Ao fazer o processo de exclução de um refeição deve se zerar a sequência de dietas dentro da dieta, ou seja dever ser 0
 - [x] Quanto efetuado a atualização da um refeição, e a refeição atualizada estiver fora da dieta deve ser zerado a sequência de refeições dentro da dieta
