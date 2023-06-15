@@ -38,4 +38,19 @@ export class InMemoryUsersRepository implements UsersRepository {
 
     return user
   }
+
+  async update(data: Prisma.UserUncheckedUpdateInput) {
+    const userIndex = this.users.findIndex(user => user.id === data.id)
+
+    const updatedUser = this.users[userIndex]
+
+    updatedUser.avatar = data.avatar as string
+    updatedUser.createdAt = data.createdAt as Date
+    updatedUser.email = data.email as string
+    updatedUser.githubId = data.githubId as number
+    updatedUser.name = data.name as string
+    updatedUser.sequenceCount = data.sequenceCount as number
+
+    return updatedUser
+  }
 }
