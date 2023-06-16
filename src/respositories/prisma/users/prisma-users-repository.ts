@@ -39,6 +39,8 @@ export class PrismaUsersRepository implements UsersRepository {
         email: data.email,
         githubId: data.githubId,
         name: data.name,
+        bestSequence: data.bestSequence,
+        sequenceCount: data.sequenceCount
       },
       where: {
         id: data.id as string

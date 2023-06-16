@@ -32,7 +32,7 @@ export class PrismaMealsRepository implements MealsRepository {
         hour: data.hour,
         isOnDiet: data.isOnDiet,
         name: data.name,
-        userId: data.userId
+        userId: data.userId,
       },
       where: {
         id: data.id as string

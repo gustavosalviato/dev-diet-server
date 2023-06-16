@@ -36,6 +36,11 @@ export class CreateMealUseCase {
       createdAt
     })
 
+    await this.usersRepository.update({
+      id: user.id,
+      sequenceCount: meal.isOnDiet ? user.sequenceCount + 1 : 0,
+    })
+
     return {
       meal
     }

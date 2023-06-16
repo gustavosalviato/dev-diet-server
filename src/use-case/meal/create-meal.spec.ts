@@ -52,4 +52,80 @@ describe('Create meal', () => {
     ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 
+
+  it('should increment sequence count on only when created a meal on diet', async () => {
+
+    const user = await usersRepository.create({
+      email: '',
+      name: '',
+      sequenceCount: 0,
+    })
+
+    await sut.execute({
+      description: 'test description',
+      hour: 1,
+      isOnDiet: true,
+      name: 'test name',
+      userId: user.id,
+      createdAt: new Date()
+    })
+
+    
+    await sut.execute({
+      description: 'test description',
+      hour: 1,
+      isOnDiet: true,
+      name: 'test name',
+      userId: user.id,
+      createdAt: new Date()
+    })
+
+    const usersResponse = await usersRepository.findUserById(user.id)
+
+    expect(usersResponse?.sequenceCount).toEqual(2)
+  })
+
+
+  it('should set sequence count to zero when user make a meal off diet', async () => {
+
+    const user = await usersRepository.create({
+      email: '',
+      name: '',
+      sequenceCount: 0,
+    })
+
+    await sut.execute({
+      description: 'test description',
+      hour: 1,
+      isOnDiet: true,
+      name: 'test name',
+      userId: user.id,
+      createdAt: new Date()
+    })
+
+    
+    await sut.execute({
+      description: 'test description',
+      hour: 1,
+      isOnDiet: true,
+      name: 'test name',
+      userId: user.id,
+      createdAt: new Date()
+    })
+
+    await sut.execute({
+      description: 'test description',
+      hour: 1,
+      isOnDiet: false,
+      name: 'test name',
+      userId: user.id,
+      createdAt: new Date()
+    })
+
+
+    const usersResponse = await usersRepository.findUserById(user.id)
+
+    expect(usersResponse?.sequenceCount).toEqual(0)
+  })
+
 })

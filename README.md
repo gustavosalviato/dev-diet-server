@@ -25,5 +25,4 @@ Diet App
 ## Regra de negócio
 
 - [x] Não se pode criar um usuário com o mesmo e-mail usado anteriormente
-- [x] Ao fazer o processo de exclução de um refeição deve se zerar a sequência de dietas dentro da dieta, ou seja dever ser 0
 - [x] Quanto efetuado a atualização da um refeição, e a refeição atualizada estiver fora da dieta deve ser zerado a sequência de refeições dentro da dieta
