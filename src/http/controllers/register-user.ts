@@ -1,9 +1,11 @@
 import axios from "axios";
-import { FastifyInstance } from "fastify";
 import { z } from 'zod'
-import { prisma } from "../lib/prisma";
-export async function authRoutes(app: FastifyInstance) {
-  app.post('/register', async (request) => {
+import { prisma } from "@/lib/prisma";
+import { FastifyRequest } from "fastify/types/request";
+import { FastifyReply } from "fastify/types/reply";
+import { app } from "@/app";
+
+export async function UserRegister(request: FastifyRequest, response : FastifyReply) {
     const bodySchema = z.object({
       code: z.string()
     })
@@ -51,7 +53,8 @@ export async function authRoutes(app: FastifyInstance) {
           email: userInfo.email,
           githubId: userInfo.id,
           name: userInfo.name,
-          sequenceCount: 0
+          sequenceCount: 0,
+          bestSequence: 0
         }
       })
     }
@@ -68,21 +71,20 @@ export async function authRoutes(app: FastifyInstance) {
     return {
       token
     }
-  })
 
-  app.get('/user/:id', async (request, reply) => {
-    const paramsSchema = z.object({
-      id: z.string()
-    })
-
-    const { id } = paramsSchema.parse(request.params)
-    
-    const userResponse = await prisma.user.findUnique({
-      where:{
-        id
-      }
-    })
-
-    return reply.send(userResponse)
-  })
+    // app.get('/user/:id', async (request, reply) => {
+    //   const paramsSchema = z.object({
+    //     id: z.string()
+    //   })
+  
+    //   const { id } = paramsSchema.parse(request.params)
+      
+    //   const userResponse = await prisma.user.findUnique({
+    //     where:{
+    //       id
+    //     }
+    //   })
+  
+    //   return reply.send(userResponse)
+    // })
 }

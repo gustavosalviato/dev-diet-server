@@ -1,6 +1,7 @@
 
 import fastify from "fastify"
 import cookies from '@fastify/cookie'
+import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import { ZodError } from 'zod'
 import { env } from '@/env'
@@ -13,6 +14,11 @@ app.register(cookies)
 app.register(jwt, {
   secret: 'daily-diet'
 })
+
+app.register(cors, {
+  origin: true
+})
+
 app.register(AppRoutes)
 
 app.setErrorHandler((error, request, reply) => {
