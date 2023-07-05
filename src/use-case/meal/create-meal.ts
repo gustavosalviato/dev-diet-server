@@ -7,7 +7,7 @@ interface CreateMealRequest {
   userId: string,
   description: string,
   name: string,
-  hour: number,
+  hour: string,
   isOnDiet: boolean,
   createdAt: Date
 }

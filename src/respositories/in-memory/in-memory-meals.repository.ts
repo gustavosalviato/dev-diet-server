@@ -31,7 +31,7 @@ export class InMemoryMealsRepository implements MealsRepository {
     updatedMeal.name = data.name as string
     updatedMeal.description = data.description as string
     updatedMeal.createdAt = data.createdAt as Date
-    updatedMeal.hour = data.hour as number
+    updatedMeal.hour = data.hour as string
     updatedMeal.isOnDiet = data.isOnDiet as boolean
 
     return updatedMeal

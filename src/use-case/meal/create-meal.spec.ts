@@ -25,11 +25,12 @@ describe('Create meal', () => {
       email: '',
       name: '',
       sequenceCount: 0,
+      bestSequence: 0
     })
 
     const { meal } = await sut.execute({
       description: 'test description',
-      hour: 1,
+      hour: '1:30',
       isOnDiet: true,
       name: 'test name',
       userId: user.id,
@@ -43,7 +44,7 @@ describe('Create meal', () => {
     await expect(() =>
       sut.execute({
         description: 'test description',
-        hour: 1,
+        hour: '1',
         isOnDiet: true,
         name: 'test name',
         userId: 'user-id-1',
@@ -59,21 +60,22 @@ describe('Create meal', () => {
       email: '',
       name: '',
       sequenceCount: 0,
+      bestSequence: 0
     })
 
     await sut.execute({
       description: 'test description',
-      hour: 1,
+      hour: '1',
       isOnDiet: true,
       name: 'test name',
       userId: user.id,
       createdAt: new Date()
     })
 
-    
+
     await sut.execute({
       description: 'test description',
-      hour: 1,
+      hour: '1',
       isOnDiet: true,
       name: 'test name',
       userId: user.id,
@@ -92,21 +94,22 @@ describe('Create meal', () => {
       email: '',
       name: '',
       sequenceCount: 0,
+      bestSequence: 0,
     })
 
     await sut.execute({
       description: 'test description',
-      hour: 1,
+      hour: '1',
       isOnDiet: true,
       name: 'test name',
       userId: user.id,
       createdAt: new Date()
     })
 
-    
+
     await sut.execute({
       description: 'test description',
-      hour: 1,
+      hour: '1',
       isOnDiet: true,
       name: 'test name',
       userId: user.id,
@@ -115,7 +118,7 @@ describe('Create meal', () => {
 
     await sut.execute({
       description: 'test description',
-      hour: 1,
+      hour: '1',
       isOnDiet: false,
       name: 'test name',
       userId: user.id,

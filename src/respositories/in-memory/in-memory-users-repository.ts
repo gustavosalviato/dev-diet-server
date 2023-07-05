@@ -11,7 +11,8 @@ export class InMemoryUsersRepository implements UsersRepository {
       sequenceCount: 0,
       githubId: null,
       avatar: null,
-      createdAt: new Date()
+      createdAt: new Date(),
+      bestSequence: 0,
     }
 
     this.users.push(user)

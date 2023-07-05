@@ -24,7 +24,7 @@ model Meal {
   name        String
   description String
   createdAt   DateTime
-  hour        Int
+  hour        String
   isOnDiet    Boolean
 
   user   User   @relation(fields: [userId], references: [id])

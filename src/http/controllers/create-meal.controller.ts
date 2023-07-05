@@ -8,7 +8,7 @@ export async function createMeal(request: FastifyRequest, reply: FastifyReply) {
     name: z.string(),
     description: z.string(),
     createdAt: z.string().datetime(),
-    hour: z.number(),
+    hour: z.string(),
     isOnDiet: z.coerce.boolean(),
     userId: z.string().uuid()
   })
@@ -24,7 +24,7 @@ export async function createMeal(request: FastifyRequest, reply: FastifyReply) {
       isOnDiet,
       name,
       userId,
-      createdAt: new Date(createdAt),
+      createdAt: new Date(createdAt)
     })
 
   } catch (err) {
