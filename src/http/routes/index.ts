@@ -6,6 +6,7 @@ import { deleteMeal } from "../controllers/delete-meal-controller";
 import { listMealsByUser } from "../controllers/list-meals-by-user-controller";
 import { listUserBestSequence } from "../controllers/get-user-best-sequence.controller";
 import { UserRegister } from "../controllers/register-user";
+import { fetchUniqueMeal } from "../controllers/fetch-unique-meal.controller";
 
 export async function AppRoutes(app: FastifyInstance) {
   app.post('/users', register)
@@ -15,4 +16,6 @@ export async function AppRoutes(app: FastifyInstance) {
   app.get('/meals/:id', listMealsByUser)
   app.get('/bestSequence/:id', listUserBestSequence)
   app.post('/register', UserRegister)
+
+  app.get('/meals/user/:id', fetchUniqueMeal)
 }

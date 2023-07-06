@@ -14,7 +14,7 @@ export async function updateMeal(request: FastifyRequest, reply: FastifyReply) {
     name: z.string(),
     description: z.string(),
     createdAt: z.string().datetime(),
-    hour: z.number(),
+    hour: z.string(),
     isOnDiet: z.coerce.boolean(),
   })
 

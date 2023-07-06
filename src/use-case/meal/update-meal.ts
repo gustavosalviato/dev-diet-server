@@ -7,7 +7,7 @@ interface UpdateMealRequest {
   name: string,
   createdAt: string,
   isOnDiet: boolean
-  hour: number
+  hour: string
 }
 
 export class UpdateMealUseCase {
