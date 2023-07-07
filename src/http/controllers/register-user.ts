@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { FastifyRequest } from "fastify/types/request";
 import { FastifyReply } from "fastify/types/reply";
 import { app } from "@/app";
+import { env } from "@/env";
+
 
 export async function UserRegister(request: FastifyRequest, response : FastifyReply) {
     const bodySchema = z.object({
@@ -14,8 +16,8 @@ export async function UserRegister(request: FastifyRequest, response : FastifyRe
 
     const acessTokenResponse = await axios.post('https://github.com/login/oauth/access_token', null, {
       params: {
-        client_id: process.env.GIT_HUB_CLIENT_ID,
-        client_secret: process.env.GIT_HUB_CLIENT_SECRET,
+        client_id: env.GIT_HUB_CLIENT_ID,
+        client_secret: env.GIT_HUB_CLIENT_SECRET,
         code
       },
       headers: {
