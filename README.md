@@ -1,28 +1,59 @@
-Diet App
+<h1 align="center"> Dev Diet </h1>
 
-## Requisitos Funcionais
+<p align="center">
+<a href="#-get-start">Get Start</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-licença">License</a>
+</p>
 
--[x] Dever ser possível criar um usuário -[x] Deve ser possível registrar uma refeição feita, com as seguintes informações:
+<br>
 
-    As refeições devem ser relacionadas a um usuário.*
+## Get Start
 
-    - Nome
-    - Descrição
-    - Data e Hora
-    - Está dentro ou não da dieta
+```jsx
+To run the application follow the steps about:
 
-- [x] Deve ser possível editar uma refeição, podendo alterar todos os dados acima
-- [x] Deve ser possível apagar uma refeição
-- [x] Deve ser possível listar todas as refeições de um usuário
-- [x] Deve ser possível visualizar uma única refeição
-- [x] Deve ser possível recuperar as métricas de um usuário
-  - Quantidade total de refeições registradas
-  - Quantidade total de refeições dentro da dieta
-  - Quantidade total de refeições fora da dieta
-  - Melhor sequência por dia de refeições dentro da dieta
-- [x] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
+1- Clone the project
 
-## Regra de negócio
+```sh
+# Clone this project
+$ git clone https://github.com/gustavosalviato/dev-diet-web.git
 
-- [x] Não se pode criar um usuário com o mesmo e-mail usado anteriormente
-- [x] Quanto efetuado a atualização da um refeição, e a refeição atualizada estiver fora da dieta deve ser zerado a sequência de refeições dentro da dieta
+# Access the folder on your terminal/cmd
+$ cd dev-diet-web
+
+# Install the dependencies
+$ npm install | yarn install 
+
+# run de application
+$ npm run dev
+
+# The application will start at port:3333 - access <http://localhost:3000>
+
+# On you Terminal run
+
+## docker compose up | docker-compose up
+
+```
+
+## 🚀 Tecnologies
+
+This project was developed with the tecnologies about:
+
+- Typescript
+- Fastify
+- Axios
+- Vitest
+
+## 💻 Project
+
+Dev diet is a simple application to control your daily meals
+
+## :memo: License
+
+This project is MIT
+
+---
+
+Made with 💜 by gustavosalviato :wave: [Make contact](https://www.linkedin.com/in/gustavo-salviato-910048212/)
