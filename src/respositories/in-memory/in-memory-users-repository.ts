@@ -13,6 +13,7 @@ export class InMemoryUsersRepository implements UsersRepository {
       avatar: null,
       createdAt: new Date(),
       bestSequence: 0,
+      password_hash: data.password_hash
     }
 
     this.users.push(user)

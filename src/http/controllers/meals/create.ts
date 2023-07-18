@@ -3,7 +3,7 @@ import { MakeCreateMealUseCase } from '@/use-case/factories/make-create-meal-use
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-export async function createMeal(request: FastifyRequest, reply: FastifyReply) {
+export async function create(request: FastifyRequest, reply: FastifyReply) {
   const bodySchema = z.object({
     name: z.string(),
     description: z.string(),

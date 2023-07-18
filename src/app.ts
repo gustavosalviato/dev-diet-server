@@ -5,21 +5,23 @@ import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import { ZodError } from 'zod'
 import { env } from '@/env'
-import { AppRoutes } from "./http/routes"
+import { userRoutes } from "./http/controllers/users"
+import { mealsRoutes } from "./http/controllers/meals"
 
 
 export const app = fastify()
 
 app.register(cookies)
 app.register(jwt, {
-  secret: 'daily-diet'
+  secret: env.JWT_SECRET
 })
 
 app.register(cors, {
   origin: true
 })
 
-app.register(AppRoutes)
+app.register(userRoutes)
+app.register(mealsRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   if (error instanceof ZodError) {

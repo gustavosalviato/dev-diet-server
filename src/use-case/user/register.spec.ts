@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { RegisterUserUseCase } from '../user/register-user'
+import { RegisterUserUseCase } from '../user/register'
 import { InMemoryUsersRepository } from '@/respositories/in-memory/in-memory-users-repository'
 import { UsersRepository } from '@/respositories/prisma/users/users-repository'
 import { UserAlreadyExistsError } from '@/error/user-already-exists.error'
@@ -16,7 +16,8 @@ describe('Register user', () => {
   it('should be able to register an user', async () => {
     const { user } = await sut.execute({
       email: 'johndoe@gmail.com',
-      name: 'John doe'
+      name: 'John doe',
+      password: '123456'
     })
 
     expect(user.id).toEqual(expect.any(String))
@@ -28,11 +29,13 @@ describe('Register user', () => {
     await sut.execute({
       email,
       name: 'John doe',
+      password: '123456'
     })
 
     await expect(sut.execute({
       email,
       name: 'John doe',
+      password: '123456'
     })).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
 })

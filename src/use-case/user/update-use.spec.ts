@@ -19,6 +19,8 @@ describe('Update Meal', () => {
       id: 'user-id-1',
       name: 'john doe',
       sequenceCount: 0,
+      bestSequence: 0,
+      password_hash: '',
     })
   })
 

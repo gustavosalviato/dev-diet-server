@@ -4,10 +4,10 @@ import { UpdateMealUseCase } from '@/use-case/meal/update-meal'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-export async function updateMeal(request: FastifyRequest, reply: FastifyReply) {
+export async function update(request: FastifyRequest, reply: FastifyReply) {
 
   const paramsSchema = z.object({
-    id: z.string()
+    mealId: z.string()
   })
 
   const bodySchema = z.object({
@@ -20,7 +20,7 @@ export async function updateMeal(request: FastifyRequest, reply: FastifyReply) {
 
   const { createdAt, description, hour, isOnDiet, name } = bodySchema.parse(request.body)
 
-  const { id } = paramsSchema.parse(request.params)
+  const { mealId } = paramsSchema.parse(request.params)
   try {
     const mealsRepository = new PrismaMealsRepository()
     const updateMealUseCase = new UpdateMealUseCase(mealsRepository)
@@ -31,7 +31,7 @@ export async function updateMeal(request: FastifyRequest, reply: FastifyReply) {
       hour,
       isOnDiet,
       name,
-      mealId: id
+      mealId
     })
 
   } catch (err) {

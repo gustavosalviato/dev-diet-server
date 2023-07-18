@@ -1,21 +1,14 @@
 import { ResourceNotFoundError } from '@/error/resource-not-found-error'
 import { makeListMealsByUserUseCase } from '@/use-case/factories/make-list-meals-by-user-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { z } from 'zod'
 
-export async function listMealsByUser(request: FastifyRequest, reply: FastifyReply) {
-  const bodySchema = z.object({
-    id: z.string()
-  })
-
-  const { id } = bodySchema.parse(request.params)
-
+export async function list(request: FastifyRequest, reply: FastifyReply) {
   try {
 
     const listMealsByUser = makeListMealsByUserUseCase()
 
     const meals = await listMealsByUser.execute({
-      userId: id
+      userId: request.user.sub
     })
 
     return reply.status(200).send({

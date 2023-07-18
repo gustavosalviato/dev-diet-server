@@ -4,19 +4,19 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
 
-export async function fetchUniqueMeal(request: FastifyRequest, reply: FastifyReply) {
+export async function getMeal(request: FastifyRequest, reply: FastifyReply) {
   const paramsSchema = z.object({
-    id: z.string()
+    mealId: z.string()
   })
 
-  const { id } = paramsSchema.parse(request.params)
+  const { mealId } = paramsSchema.parse(request.params)
 
   try {
 
     const fecthUniqueMeal = MakeFetchUniqueMeal()
 
     const { meal } = await fecthUniqueMeal.execute({
-      mealId: id
+      mealId
     })
 
     return reply.send({ meal  })

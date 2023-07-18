@@ -6,17 +6,17 @@ import { z } from 'zod'
 
 export async function deleteMeal(request: FastifyRequest, reply: FastifyReply) {
   const paramsSchema = z.object({
-    id: z.string()
+    mealId: z.string()
   })
 
-  const { id } = paramsSchema.parse(request.params)
+  const { mealId } = paramsSchema.parse(request.params)
 
   try {
     const mealsRepository = new PrismaMealsRepository()
     const deleteMealUseCase = new DeleteMealUseCase(mealsRepository)
 
     await deleteMealUseCase.execute({
-      mealId: id
+      mealId
     })
 
   } catch (err) {

@@ -4,18 +4,18 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
 
-export async function ListUserMetrics(request: FastifyRequest, reply: FastifyReply) {
+export async function metrics(request: FastifyRequest, reply: FastifyReply) {
   const paramsSchema = z.object({
-    id: z.string()
+    userId: z.string().uuid()
   })
 
-  const { id } = paramsSchema.parse(request.params)
+  const { userId } = paramsSchema.parse(request.params)
 
   try {
 
     const listUseMetrics = makeListUserMetrics()
 
-    const { metrics } = await listUseMetrics.execute({ userId: id })
+    const { metrics } = await listUseMetrics.execute({ userId })
 
     return reply.send({ metrics })
 
