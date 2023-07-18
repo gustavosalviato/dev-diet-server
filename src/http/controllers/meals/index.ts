@@ -15,5 +15,5 @@ export async function mealsRoutes(app: FastifyInstance) {
 
   app.post('/meals', create)
   app.put('/meals/:mealId', update)
-  app.delete('/meals/:id', deleteMeal)
+  app.delete('/meals/:mealId', deleteMeal)
 }

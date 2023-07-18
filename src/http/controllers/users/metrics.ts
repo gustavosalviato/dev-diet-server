@@ -1,23 +1,21 @@
 import { ResourceNotFoundError } from '@/error/resource-not-found-error'
 import { makeListUserMetrics } from '@/use-case/factories/make-list-user-metrics'
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { z } from 'zod'
-
 
 export async function metrics(request: FastifyRequest, reply: FastifyReply) {
-  const paramsSchema = z.object({
-    userId: z.string().uuid()
-  })
-
-  const { userId } = paramsSchema.parse(request.params)
 
   try {
 
     const listUseMetrics = makeListUserMetrics()
 
-    const { metrics } = await listUseMetrics.execute({ userId })
+    const { metrics } = await listUseMetrics.execute(
+      {
+        userId: request.user.sub
+      })
 
-    return reply.send({ metrics })
+    return reply.status(200).send(
+      { metrics }
+    )
 
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {

@@ -19,7 +19,7 @@ export async function getMeal(request: FastifyRequest, reply: FastifyReply) {
       mealId
     })
 
-    return reply.send({ meal  })
+    return reply.status(200).send({ meal })
 
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {

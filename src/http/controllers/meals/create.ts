@@ -10,10 +10,9 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     createdAt: z.string().datetime(),
     hour: z.string(),
     isOnDiet: z.coerce.boolean(),
-    userId: z.string().uuid()
   })
 
-  const { createdAt, description, hour, isOnDiet, name, userId } = bodySchema.parse(request.body)
+  const { createdAt, description, hour, isOnDiet, name } = bodySchema.parse(request.body)
   try {
 
     const createMealUseCase = MakeCreateMealUseCase()
@@ -23,7 +22,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
       hour,
       isOnDiet,
       name,
-      userId,
+      userId: request.user.sub,
       createdAt: new Date(createdAt)
     })
 
