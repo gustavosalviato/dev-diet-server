@@ -17,7 +17,8 @@ app.register(jwt, {
 })
 
 app.register(cors, {
-  origin: true
+  origin: true,
+  credentials: true
 })
 
 app.register(userRoutes)
