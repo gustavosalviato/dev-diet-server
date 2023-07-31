@@ -1,46 +1,71 @@
-import { z } from 'zod'
+import { z } from "zod";
 import { FastifyRequest } from "fastify/types/request";
 import { FastifyReply } from "fastify/types/reply";
-import { MakeAuthenticateUserUseCase } from '@/use-case/factories/make-authenticate-user-use-case';
-import { InvalidCredentialsError } from '@/error/invalid-credential.error';
+import { MakeAuthenticateUserUseCase } from "@/use-case/factories/make-authenticate-user-use-case";
+import { InvalidCredentialsError } from "@/error/invalid-credential.error";
 
-
-export async function authenticate(request: FastifyRequest, response: FastifyReply) {
+export async function authenticate(
+  request: FastifyRequest,
+  response: FastifyReply
+) {
   const authenticateBodySchema = z.object({
     email: z.string().email(),
-    password: z.string()
-  })
+    password: z.string(),
+  });
 
-
-  const { email, password } = authenticateBodySchema.parse(request.body)
-
+  const { email, password } = authenticateBodySchema.parse(request.body);
 
   try {
-    const authenticateUseCase = MakeAuthenticateUserUseCase()
+    const authenticateUseCase = MakeAuthenticateUserUseCase();
 
     const { user } = await authenticateUseCase.execute({
       email,
-      password
-    })
+      password,
+    });
 
-    const token =  await response.jwtSign({}, {
-      sign: {
-        sub: user.id
+    const token = await response.jwtSign(
+      {
+        name: user.name,
+        email: user.email,
+      },
+      {
+        sign: {
+          sub: user.id,
+          expiresIn: "10m",
+        },
       }
-    })
+    );
 
-    return response.status(200).send({
-      token
-    })
+    const refreshToken = await response.jwtSign(
+      { name: user.name, email: user.email },
+      {
+        sign: {
+          sub: user.id,
+          expiresIn: "7d",
+        },
+      }
+    );
 
+    return response
+      .setCookie("devdiet.refreshToken", refreshToken, {
+        path: "/",
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+      })
+      .status(200)
+      .send({
+        token,
+      });
   } catch (err) {
     if (err instanceof InvalidCredentialsError) {
       return response.status(400).send({
-        message: err.message
-      })
+        message: err.message,
+      });
     }
 
-    throw err
-  }
+    response.status(401).send({ error: "Token expirado ou inválido" });
 
+    throw err;
+  }
 }
