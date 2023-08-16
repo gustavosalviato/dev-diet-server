@@ -31,7 +31,7 @@ export async function authenticate(
       {
         sign: {
           sub: user.id,
-          expiresIn: "10m",
+          expiresIn: "1m",
         },
       }
     );
@@ -49,7 +49,7 @@ export async function authenticate(
     return response
       .setCookie("devdiet.refreshToken", refreshToken, {
         path: "/",
-        secure: true,
+        // secure: true,
         sameSite: true,
         httpOnly: true,
       })
@@ -63,8 +63,6 @@ export async function authenticate(
         message: err.message,
       });
     }
-
-    response.status(401).send({ error: "Token expirado ou inválido" });
 
     throw err;
   }

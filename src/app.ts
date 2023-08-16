@@ -16,7 +16,8 @@ app.register(jwt, {
     signed: false,
   },
   sign: {
-    expiresIn: "10m",
+    // expiresIn: "10m",
+    expiresIn: "1m",
   },
 });
 
