@@ -23,7 +23,7 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
       {
         sign: {
           sub: user?.id,
-          expiresIn: "1m",
+          expiresIn: "1h",
           aud: "accessToken.API",
         },
       }
