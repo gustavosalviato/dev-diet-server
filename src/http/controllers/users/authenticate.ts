@@ -25,38 +25,32 @@ export async function authenticate(
 
     const token = await response.jwtSign(
       {
-        name: user.name,
         email: user.email,
       },
       {
         sign: {
           sub: user.id,
           expiresIn: "1m",
+          aud: "accessToken.API",
         },
       }
     );
 
     const refreshToken = await response.jwtSign(
-      { name: user.name, email: user.email },
+      {},
       {
         sign: {
           sub: user.id,
-          expiresIn: "7d",
+          expiresIn: "30d",
+          aud: "refreshToken.API",
         },
       }
     );
 
-    return response
-      .setCookie("devdiet.refreshToken", refreshToken, {
-        path: "/",
-        // secure: true,
-        sameSite: true,
-        httpOnly: true,
-      })
-      .status(200)
-      .send({
-        token,
-      });
+    return response.status(200).send({
+      token,
+      refreshToken,
+    });
   } catch (err) {
     if (err instanceof InvalidCredentialsError) {
       return response.status(400).send({

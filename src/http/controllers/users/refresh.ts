@@ -1,36 +1,52 @@
+import { z } from "zod";
 import { FastifyRequest, FastifyReply } from "fastify";
+import { MakeRefreshTokenUseCase } from "@/use-case/factories/make-refresh-token-use-case";
 
 export async function refresh(request: FastifyRequest, reply: FastifyReply) {
-  await request.jwtVerify({ onlyCookie: true });
+  const refreshBodySchema = z.object({
+    refreshToken: z.string(),
+  });
 
-  const token = await reply.jwtSign(
-    {},
-    {
-      sign: {
-        sub: request.user.sub,
-      },
-    }
-  );
+  const { refreshToken } = refreshBodySchema.parse(request.body);
 
-  const refreshToken = await reply.jwtSign(
-    {},
-    {
-      sign: {
-        sub: request.user.sub,
-        expiresIn: "7d",
-      },
-    }
-  );
+  try {
+    const refreshTokenUseCase = MakeRefreshTokenUseCase();
 
-  return reply
-    .setCookie("devdiet.refreshToken", refreshToken, {
-      path: "/",
-      // secure: true,
-      sameSite: true,
-      httpOnly: true,
-    })
-    .status(200)
-    .send({
-      token,
+    const user = await refreshTokenUseCase.execute({
+      refreshToken,
     });
+
+    const newAccessToken = await reply.jwtSign(
+      {
+        email: user?.email,
+      },
+      {
+        sign: {
+          sub: user?.id,
+          expiresIn: "1m",
+          aud: "accessToken.API",
+        },
+      }
+    );
+
+    const newRefreshToken = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: user?.id,
+          expiresIn: "30d",
+          aud: "refreshToken.API",
+        },
+      }
+    );
+
+    return reply.status(200).send({
+      token: newAccessToken,
+      refreshToken: newRefreshToken,
+    });
+  } catch (err) {
+    reply.status(401).send({ err });
+
+    throw err;
+  }
 }
